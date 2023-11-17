@@ -109,12 +109,9 @@ jobs:
         git config --global user.name "User"
         ./y.sh prepare
 
-    # Compile is a separate step, as the actions-rs/cargo action supports error annotations
     - name: Compile
-      uses: actions-rs/cargo@v1.0.3
-      with:
-        command: build
-        args: --release
+      run: |
+        cargo build --release
 
     - name: Add more failing tests because the sysroot is not compiled with LTO
       run: cat failing-non-lto-tests.txt >> failing-ui-tests.txt
